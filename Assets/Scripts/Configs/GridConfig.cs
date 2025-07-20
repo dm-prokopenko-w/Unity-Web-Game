@@ -9,14 +9,8 @@ namespace Configs
     {
         [SerializeField] private List<Grid> _grids = new ();
 
-        public Grid GetGrid(int gridId)
-        {
-            if (gridId < 0 || gridId >= _grids.Count)
-            {
-                return null;
-            }
-            return _grids[gridId];
-        }
+        public Grid GetCurrentGridConfig(int gridId) => 
+            _grids.Find(x => x.numTir == gridId);
     }
 
     [Serializable]

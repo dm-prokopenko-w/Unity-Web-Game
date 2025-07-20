@@ -41,6 +41,8 @@ namespace Services.Data
                     {
                         Debug.Log($"Cell: x={cell.x}, y={cell.y}");
                     }
+
+                    _isInitialized = true;
                     onComplete.Invoke();
                 },
                 err =>

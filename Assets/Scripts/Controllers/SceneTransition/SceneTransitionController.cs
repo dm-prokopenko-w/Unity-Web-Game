@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using View.Transition;
 
 namespace Controllers.SceneTransition

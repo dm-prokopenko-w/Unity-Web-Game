@@ -24,7 +24,7 @@ namespace View.Transition
                 ShowScreen();
             }
         }
-
+        
         public void HideScreen(Action onComplete = null)
         {
             transitionBg.transform.DOScale(Vector3.one * endScale, duration).SetEase(ease).OnComplete(

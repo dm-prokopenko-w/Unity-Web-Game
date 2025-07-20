@@ -6,6 +6,7 @@ using DG.Tweening;
 using Transfer.ApiData;
 using UnityEngine;
 using Zenject;
+using Grid = Configs.Grid;
 
 public class GameBuilder : IGameBuilder
 {
@@ -16,14 +17,23 @@ public class GameBuilder : IGameBuilder
     private List<Tier> _tiers = new();
     private int _progress, _numKeys;
     private KeyPanelView _keyFly;
+    private Grid _currentGridConfig;
 
     private float Progress => (1f / (_numKeys + 1)) * _progress;
 
     public void Setup(SessionData sessionData, GameView view)
     {
         _progress = sessionData.progress;
-        _numKeys = _gridConfig.GetGrid(sessionData.tier).numKeys;
-        view.Setup(Progress, _gridConfig.GetGrid(sessionData.tier).size.x, Claim);
+        _currentGridConfig = _gridConfig.GetCurrentGridConfig(sessionData.tier);
+
+        if (_currentGridConfig == null)
+        {
+            Debug.LogError($"No config found with tier {sessionData.tier}.");
+            return;
+        }
+        
+        _numKeys = _currentGridConfig.numKeys;
+        view.Setup(Progress, _currentGridConfig.size.x, Claim);
         GridBuild(view, sessionData);
         SetRandomKey(sessionData.seed, _numKeys - sessionData.progress);
         ChestBuild(view, _numKeys);
@@ -80,9 +90,9 @@ public class GameBuilder : IGameBuilder
             return;
         }
 
-        for (int y = 0; y < _gridConfig.GetGrid(sessionData.tier).size.y; y++)
+        for (int y = 0; y < _currentGridConfig.size.y; y++)
         {
-            for (int x = 0; x < _gridConfig.GetGrid(sessionData.tier).size.x; x++)
+            for (int x = 0; x < _currentGridConfig.size.x; x++)
             {
                 var btnView = GameObject.Instantiate(prefabBtn, view.Grid.transform);
                 btnView.gameObject.name = "ButtonGridView - " + x + "x" + y;
