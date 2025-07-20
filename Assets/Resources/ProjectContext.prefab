@@ -75,3 +75,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endPointsConfig: {fileID: 11400000, guid: 4711f0229e0625048bf8073839f5f78c, type: 2}
+  gridConfig: {fileID: 11400000, guid: c849e1df61c14ca458d9e19f1031c044, type: 2}
