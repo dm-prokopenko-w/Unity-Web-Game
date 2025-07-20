@@ -10,6 +10,7 @@ namespace Installers.Global
     {
 
         [SerializeField] private EndPointsConfig endPointsConfig;
+        [SerializeField] private GridConfig gridConfig;
         
         public override void InstallBindings()
         {
@@ -17,7 +18,7 @@ namespace Installers.Global
             Container.BindInterfacesAndSelfTo<DataService>().AsSingle().NonLazy();
             
             Container.Bind<EndPointsConfig>().FromInstance(endPointsConfig).AsSingle();
+            Container.Bind<GridConfig>().FromInstance(gridConfig).AsSingle();
         }
-        
     }
 }
